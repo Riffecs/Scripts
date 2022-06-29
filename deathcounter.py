@@ -1,85 +1,83 @@
-# Death Counter - Elden Ring
+#!/usr/bin/env python
+
 import os
 import keyboard
 import sys
+from string import lower
+
+"""
+    Deathcounter for Streamer
+"""
+#  Global variables
+__author__:str = "Riffecs"
+__copyright__:str = "Copyright 2022, Riffecs"
+__license__:str = "MIT"
+__version__:str = "1.0.1"
+__email__:str = f"{lower(__author__)}@gmail.com"
+
 
 # Load Global Vars
 # Field to increase counter.
-counter = 'e'
+counter: str = "e"
 # Field to cancel the programme
-end = 'q'
+end: str = "q"
 # Path to the logger file
 # Please enter the path with double backslash
-path = "C:\\Users\\Riffecs\\Desktop\\Leon\\counter.txt"
+pathsplit: list[str] = "C:\\Users\\Riffecs\\Desktop\\Leon\\counter.txt".split("\\")
 # If no file is available, this is taken as the start value.
-start = 30
-
-# Splitting the path into different elements    
-pathsplit = path.split("\\")
+start: int = 30
 
 # Testing the file name
-filename = pathsplit[len(pathsplit)-1]
+filename = pathsplit[len(pathsplit) - 1]
 
 # Compose the new path
-pathnew = ""
+pathnew: str = ""
 
 # It is recommended that the file is not included here. Therefore, the for-each is modified.
 for i in range(0, len(pathsplit) - 1):
-    pathnew += pathsplit[i]+"\\"
+    pathnew += pathsplit[i] + "\\"
 
 # Change path
 try:
     os.chdir(pathnew)
 except Exception as e:
     print("The path is not available. Please check if you have made a mistake")
-    print("Exception: "+e)
+    print("Exception: " + e)
     sys.exit(0)
 finally:
-    print("Current folder: "+os.getcwd())
+    print("Current folder: " + os.getcwd())
 
 # Test if the file already exists
 # If the file does not exist, it is created.
 try:
-    f = open(pathsplit[len(pathsplit)-1], encoding="utf-8")
+    with open(pathsplit[len(pathsplit) - 1], encoding="utf-8") as f:
+        f.write(str(start))
 except IOError as file_error:
-    print("File not accessible")
-    print("I am trying to create the file.")
-    f = open(pathsplit[len(pathsplit)-1], "w+", encoding="utf-8")
-    f.write(str(start))
-finally:
-    f.close()
+    print("File not accessible\n I am trying to create the file.")
 
 # This is where the actual programme begins.
 # The rest was actually just configuration stuff.
-
-
-# Basically, it works like a Mugen Tsukuyomi. 
-# That's why it's tied into an endless Loop. 
-while True: 
+# That's why it's tied into an endless Loop.
+while True:
     # Here is when the button is pressed.
     if keyboard.read_key() == counter:
         # Creating the File Handler
-        f =  open(pathsplit[len(pathsplit)-1], "r+", encoding="utf-8")
-        runner = f.readline()
-        runner = runner.replace(" ", "")
-        runner = runner.replace("\x00","")  
-        # Outpute
-        print("Runner:"+ runner)
-        print("Type:" + str(type(runner)))
-        runner = int(runner)
-        # Reading the counter
-        runner += 1
-        # Emptying the file at byte level
-        f.seek(0)
-        # Describe the file with the new countere
-        f.write(str(runner))
-        # Exit the File Handlere
-        f.close()
+        with open(pathsplit[len(pathsplit) - 1], "r+", encoding="utf-8") as container:
+            # Fix Byte Problems: \x00
+            runner = int(f.readline().replace(" ", "").replace("\x00", ""))
+            # Outpute
+            print(f"Runner:{runner}\nType{type(runner)}", end="\n")
+            # Reading the counter
+            runner += 1
+            # Emptying the file at byte level
+            container.seek(0)
+            # Describe the file with the new countere
+            container.write(str(runner))
 
     # End of the Tsukuyomi
     if keyboard.read_key() == end:
         print("Programm end")
         break
-        
-# Exit the complete programme. 
+
+# Exit the complete programme.
 sys.exit(0)
