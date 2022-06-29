@@ -64,11 +64,9 @@ while True:
         # Creating the File Handler
         with open(pathsplit[len(pathsplit) - 1], "r+", encoding="utf-8") as container:
             # Fix Byte Problems: \x00
-            runner = int(f.readline().replace(" ", "").replace("\x00", ""))
+            runner = int(f.readline().replace(" ", "").replace("\x00", ""))+1
             # Outpute
-            print(f"Runner:{runner}\nType{type(runner)}", end="\n")
-            # Reading the counter
-            runner += 1
+            print(f"Runner:{runner-1}\nType{type(runner)}", end="\n")
             # Emptying the file at byte level
             container.seek(0)
             # Describe the file with the new countere
