@@ -22,17 +22,3 @@ alias resolvconf="sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'"
 alias zshrc="nano ~/.zshrc"
 alias black="black *.py"
 
-# Windows Config
-set -e
-if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-    if [ ! -d "/mnt/c" ]
-        then 
-            alias winc="cd /mnt/c/"
-            alias winuser="cd /mnt/c/Users/Riffecs"
-            alias windesktop="cd /mnt/c/Users/Riffecs/Desktop"
-    fi
-    if [ ! -d "/mnt/d" ]
-        then 
-            alias nextcloud="cd /mnt/d/nextcloud"
-    fi
-fi
