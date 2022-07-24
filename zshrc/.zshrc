@@ -15,8 +15,8 @@ fi
 export ARCHFLAGS="-arch x86_64"
 
 # Git Config
- git config --global user.name "Riffecs"
- git config --global user.email "riffecs@gmail.com"
+git config --global user.name "Riffecs"
+git config --global user.email "riffecs@gmail.com"
 
 
 # My Config
