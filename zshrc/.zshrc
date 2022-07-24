@@ -11,8 +11,10 @@ else
   export EDITOR='nano'
 fi
 
+
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
+
 
 # Git Config
 git config --global user.name "Riffecs"
@@ -24,3 +26,9 @@ alias cls="clear"
 alias resolvconf="sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'"
 alias zshrc="nano ~/.zshrc"
 
+# Windows Config
+alias cuser="cd /mnt/c/Users/Riffecs"
+
+
+# Linux Overload
+alias ll="ls -aril"
